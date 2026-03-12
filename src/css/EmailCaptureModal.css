@@ -1,0 +1,185 @@
+/* ========================================
+   BACKDROP - Fondo oscuro que cubre TODO
+   ======================================== */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ========================================
+   MODAL CONTENT - Caja blanca centrada
+   ======================================== */
+.modal-content {
+  background: white;
+  padding: 32px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ========================================
+   BOTÓN CERRAR (X)
+   ======================================== */
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1;
+  color: #999;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.modal-close:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.modal-close:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* ========================================
+   TÍTULO Y FORM
+   ======================================== */
+.modal-content h2 {
+  margin: 0 0 24px 0;
+  font-size: 24px;
+  color: #333;
+  font-weight: 600;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ========================================
+   INPUT EMAIL - ✅ CORREGIDO
+   ======================================== */
+.modal-content input[type="email"] {
+  padding: 12px 16px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+
+  /* Forzar colores claros */
+  background-color: #ffffff !important;
+  color: #333333 !important;
+
+  transition: border-color 0.2s;
+}
+
+.modal-content input[type="email"]::placeholder {
+  color: #999999 !important;
+  opacity: 1;
+}
+
+.modal-content input[type="email"]:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  background-color: #ffffff !important;
+}
+
+.modal-content input[type="email"].error {
+  border-color: #dc3545;
+}
+
+/* ========================================
+   ERROR MESSAGE
+   ======================================== */
+/* Error message */
+.error-message {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: -8px;
+}
+
+/* Input con error */
+.modal-content input.error {
+  border-color: #dc3545;
+}
+
+/* ========================================
+   BOTÓN SUBMIT
+   ======================================== */
+.modal-content button[type="submit"] {
+  padding: 12px 24px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal-content button[type="submit"]:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.modal-content button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 600px) {
+  .modal-content {
+    padding: 24px;
+    margin: 16px;
+  }
+
+  .modal-content h2 {
+    font-size: 20px;
+  }
+}

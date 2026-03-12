@@ -1,0 +1,46 @@
+.status-message {
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 2rem;
+}
+
+.status-message.error {
+  color: #ff6b6b;
+}
+
+.user-count {
+  color: #888;
+  margin-bottom: 1rem;
+}
+
+.user-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+}
+
+.user-card {
+  background-color: #1a1a2e;
+  border-radius: 8px;
+  width: 80%;
+  padding: 1rem;
+  justify-items: center;
+}
+
+.user-card h3 {
+  margin: 0 0 0.5rem 0;
+  color: #00d9ff;
+}
+
+.user-email {
+  margin: 0.25rem 0;
+  color: #e0e0e0;
+}
+
+.user-company {
+  margin: 0.25rem 0;
+  color: #888;
+  font-size: 0.9rem;
+}
