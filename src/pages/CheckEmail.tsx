@@ -18,6 +18,8 @@ function CheckEmail() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title="Join Our Newsletter"
+        // buttonColor="#28a745"
+        description="Stay updated with our latest news and exclusive offers"
       />
     </div>
   );

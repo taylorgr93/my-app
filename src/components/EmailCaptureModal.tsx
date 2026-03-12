@@ -5,12 +5,16 @@ interface EmailCaptureModalProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
+  buttonColor?: string;
+  description?: string;
 }
 
 function EmailCaptureModal({
   isOpen,
   onClose,
   title = "Capture Email",
+  buttonColor = "#007bff",
+  description,
 }: EmailCaptureModalProps) {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
@@ -30,6 +34,25 @@ function EmailCaptureModal({
       inputRef.current?.focus();
     }
   }, [isOpen]);
+
+  // cerrar con escape
+  useEffect(() => {
+    if (!isOpen) return; // ← IMPORTANTE: Sale temprano si está cerrado
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
+    };
+
+    // SETUP: Se ejecuta cuando el componente monta o deps cambian
+    window.addEventListener("keydown", handleEscape);
+
+    // CLEANUP: Se ejecuta ANTES del próximo setup o al desmontar
+    return () => {
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -60,29 +83,64 @@ function EmailCaptureModal({
   };
 
   return (
-    <div className="modal-backdrop" onClick={onClose}>
+    <div
+      className="modal-backdrop"
+      onClick={onClose}
+      role="dialog" // ← Indica que es un diálogo
+      aria-modal="true" // ← Es modal (bloquea contenido detrás)
+      aria-labelledby="modal-title" // ← Conecta con el título
+      aria-describedby={description ? "modal-description" : undefined}
+    >
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         {/* Botón cerrar */}
-        <button className="modal-close" onClick={onClose}>
+        <button
+          className="modal-close"
+          onClick={onClose}
+          type="button"
+          aria-label="Close modal" // ← Para screen readers
+        >
           &times;
         </button>
 
         <h2>{title}</h2>
+
+        {description && (
+          <p id="modal-description" className="modal-description">
+            {description}
+          </p>
+        )}
+
         {/* noValidate - Desactiva validación HTML5 en el navegador */}
         <form onSubmit={handleSubmit} noValidate>
+          <label htmlFor="email-input" className="sr-only">
+            Email address
+          </label>
           <input
+            id="email-input" // ← Conecta con label
             ref={inputRef}
             type="email"
             placeholder="Enter your email"
             value={email}
             onChange={handleEmailChange}
             className={error ? "error" : ""} // ← Clase condicional para borde rojo
+            aria-invalid={error ? "true" : "false"} // ← Indica error
+            aria-describedby={error ? "email-error" : undefined}
           />
 
           {/* Mostrar error */}
-          {error && <span className="error-message">{error}</span>}
+          {error && (
+            <span
+              id="email-error"
+              className="error-message"
+              role="alert" // ← Screen reader anuncia error
+            >
+              {error}
+            </span>
+          )}
 
-          <button type="submit">Submit</button>
+          <button type="submit" style={{ backgroundColor: buttonColor }}>
+            Submit
+          </button>
         </form>
       </div>
     </div>
